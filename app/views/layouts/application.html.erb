@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+<div class="collapse navbar-collapse" id="collapse">
+<ul class="nav navbar-nav">
+  <li class="<%= "active" if current_page?("/") %>">
+<%= link_to "Home", root_path, class: "navbar-brand" %>
+</li>
+<li class="<%= "active" if current_page?("/books") %>">
+<%= link_to "Books", books_path, class: "navbar-brand" %>
+</li>
+
+</ul>
+
+
+
+  <% unless user_signed_in? %>
+<div class="navbar-right">
+  <ul class="nav navbar-nav">
+    <li class="<%= "active" if current_page?("/users/sign_in") %>">
+              <%= link_to "Sign in", new_user_session_path
+                %>
+                </li>
+</ul>
+           
+</div>
+ <% end %>
+<% if user_signed_in? %>
+          <div class="navbar-right">
+            <p class="navbar-text">
+              Signed in as <%= current_user.email %>
+</p> 
+
+
+             <ul class="nav navbar-nav">
+              <li><%= link_to "Sign out", destroy_user_session_path,
+                method: :delete %>
+</li> </ul>
+</div>
+<% end %>
+</div>
+</nav>
+
+
+
+<%= yield %>
+
+</body>
+</html>
