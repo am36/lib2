@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
+  namespace :admin do
+   root 'application#index'
+  end
+
+  namespace :admin do
+   get 'user/new'
+  end
+ 
+  
   devise_for :users
+  
+  
+  
   resources :books
   root 'static_pages#welcome'
   
