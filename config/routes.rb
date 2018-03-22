@@ -1,18 +1,24 @@
 Rails.application.routes.draw do
+  devise_for :users
+  
   namespace :admin do
    root 'application#index'
+   resources :users, only: [:new, :create, :edit, :index]
+   resources :books, only: [:new, :create, :destroy, :edit]
   end
+  
+  
 
   namespace :admin do
    get 'user/new'
   end
  
   
-  devise_for :users
   
   
   
-  resources :books
+  resources :users, only: [:show]
+  resources :books, only: [:index, :show]
   root 'static_pages#welcome'
   
   
